@@ -14,15 +14,18 @@ def group_messenger():
             "yearA": "https://web.whatsapp.com/accept?code=GezyfprTPOx2KsHPUETP7Z"}
 
     name = input("Enter the Username of the person you want to text in said group")
+    message=input("Enter the message you want to send: ")
+    print(f"the groups are: {groups.keys()}")
     webbrowser.open(groups[input("Enter one of the groups")])
     time.sleep(15)
     pyperclip.copy(f"@{name}")
     pyautogui.hotkey('ctrl', 'v')
     time.sleep(2)
     pyautogui.press('enter')
-    pyautogui.typewrite(message=input("Enter the message you want to send: "))
+    pyperclip.copy(message)
+    pyautogui.hotkey('ctrl', 'v')
     pyautogui.press('enter')
-    time.sleep(5)
+    time.sleep(1)
     pyautogui.hotkey('ctrl', 'w')
 
 def person_messenger():
