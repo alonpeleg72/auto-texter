@@ -20,7 +20,7 @@ def group_messenger():
     pyautogui.hotkey('ctrl', 'v')
     time.sleep(2)
     pyautogui.press('enter')
-    pyautogui.typewrite(" I'm sending this only using code ;)")
+    pyautogui.typewrite(message=input("Enter the message you want to send: "))
     pyautogui.press('enter')
     time.sleep(5)
     pyautogui.hotkey('ctrl', 'w')
