@@ -2,7 +2,6 @@ import webbrowser
 import pyautogui
 import time
 import pyperclip
-import pywhatkit
 
 def messenger(message, name):
     pyautogui.click(1188, 1622)
