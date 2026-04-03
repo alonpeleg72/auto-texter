@@ -4,8 +4,13 @@ import time
 import pyperclip
 import pywhatkit
 
-def messenger(message):
+def messenger(message, name):
     pyautogui.click(1188, 1622)
+    if name != None and name != "none":
+        pyperclip.copy(f"@{name}")
+        pyautogui.hotkey('ctrl', 'v')
+        time.sleep(2)
+        pyautogui.press('enter')
     pyperclip.copy(message)
     pyautogui.hotkey('ctrl', 'v')
     pyautogui.press('enter')
@@ -18,25 +23,27 @@ def  person_chat_open():
     return message
 
 def group_chat_open():
-    groups = { "Yagels": "https://web.whatsapp.com/accept?code=KRIi2ftqjYI7dtuWNL9mBi",
+    groups = { "yagels": "https://web.whatsapp.com/accept?code=KRIi2ftqjYI7dtuWNL9mBi",
             "year0": "https://web.whatsapp.com/accept?code=DsfyW4SLn59FNsIgpeJc8Y",
             "shutes": "https://web.whatsapp.com/accept?code=BhuaH34bpnLKoF8cmQ2mX1",
             "quotes": "https://web.whatsapp.com/accept?code=HuFgVZG405jB7ZqCOwqKAR",
             "yearA": "https://web.whatsapp.com/accept?code=GezyfprTPOx2KsHPUETP7Z"}
     print(f"the groups are: {groups.keys()}")
-    webbrowser.open(groups[input("Enter one of the groups")])
+    selected_group = input("Enter one of the groups: ")
+    webbrowser.open(groups[selected_group])
 
 def ANNOYING_TIME():
     choice =  input("do you want to send a message to a group or a person?").lower()
     num_messages = int(input("how much messages do you want to send?"))
     match choice:
         case "group":
-            message = input("Enter the message you want to send: ")
+            message=input("Enter the message you want to send: ")
+            name = input("Enter the Username of the person you want to text in said group")
             group_chat_open()
             time.sleep(15)
             for i in range(num_messages):
                 time.sleep(2)
-                messenger(message)
+                messenger(message, name)
             time.sleep(2)
             pyautogui.hotkey('ctrl', 'w')
         case "person":
@@ -44,28 +51,23 @@ def ANNOYING_TIME():
             time.sleep(10)
             for i in range(num_messages):
                 time.sleep(2)
-                messenger(message)
+                messenger(message, None)
             time.sleep(2)
             pyautogui.hotkey('ctrl', 'w')
 
 def group_messenger():
     name = input("Enter the Username of the person you want to text in said group")
-    message=input("Enter the message you want to send: ")
+    message = input("Enter the message you want to send: ")
     group_chat_open()
     time.sleep(15)
-    if name != "none":
-        pyperclip.copy(f"@{name}")
-        pyautogui.hotkey('ctrl', 'v')
-        time.sleep(2)
-        pyautogui.press('enter')
-    messenger(message)
+    messenger(message, name)
     time.sleep(1)
     pyautogui.hotkey('ctrl', 'w')
 
 def person_messenger():
     message = person_chat_open()
     time.sleep(12)
-    messenger(message)
+    messenger(message, None)
     time.sleep(1)
     pyautogui.hotkey('ctrl', 'w')
 
