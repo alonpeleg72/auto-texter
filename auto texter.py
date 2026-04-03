@@ -40,4 +40,14 @@ def ANNOYING_TIME():
         case "person":
             for i in range(num_messages):
                 person_messenger()
-  
+
+if __name__ == "__main__":
+    annoying_time = input("is it annoying time? (yes/no)").lower() == "yes"
+    match annoying_time:
+        case True:
+            ANNOYING_TIME()
+        case False:
+            if input("soo to a person or group?").lower() == "person":
+                person_messenger()
+            else:
+                group_messenger()
