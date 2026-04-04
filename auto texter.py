@@ -8,7 +8,7 @@ def messenger(message, name):
     if name != None and name != "none":
         pyperclip.copy(f"@{name}")
         pyautogui.hotkey('ctrl', 'v')
-        time.sleep(2)
+        time.sleep(1)
         pyautogui.press('enter')
     pyperclip.copy(message)
     pyautogui.hotkey('ctrl', 'v')
@@ -44,11 +44,12 @@ def ANNOYING_TIME():
             group_chat_open()
             time.sleep(15)
             for i in range(num_messages):
-                time.sleep(2)
+                time.sleep(1)
                 messenger(message, name)
             time.sleep(2)
             pyautogui.hotkey('ctrl', 'w')
-        
+            pyautogui.hotkey('enter')
+
         case "person":
             message = person_chat_open()
             time.sleep(10)
@@ -57,6 +58,7 @@ def ANNOYING_TIME():
                 messenger(message, None)
             time.sleep(2)
             pyautogui.hotkey('ctrl', 'w')
+            pyautogui.hotkey('enter')
 
 def group_messenger():
     name = input("Enter the Username of the person you want to text in said group")
@@ -67,14 +69,16 @@ def group_messenger():
     messenger(message, name)
     time.sleep(1)
     pyautogui.hotkey('ctrl', 'w')
+    pyautogui.hotkey('enter')
 
 def person_messenger():
     message = person_chat_open()
-    time.sleep(12)
+    time.sleep(15)
     
     messenger(message, None)
     time.sleep(1)
     pyautogui.hotkey('ctrl', 'w')
+    pyautogui.hotkey('enter')
 
 if __name__ == "__main__":
     annoying_time = input("is it annoying time? (yes/no)").lower() == "yes"
