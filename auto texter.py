@@ -1,39 +1,52 @@
+import sys
+sys.dont_write_bytecode = True
 import webbrowser
 import pyautogui
+pyautogui.PAUSE = 0
 import time
 import pyperclip
+import locator
 
 # the global variables used
-groups = { "yagels": "https://web.whatsapp.com/accept?code=KRIi2ftqjYI7dtuWNL9mBi",
+GROUPS = { "yagels": "https://web.whatsapp.com/accept?code=KRIi2ftqjYI7dtuWNL9mBi",
             "year0": "https://web.whatsapp.com/accept?code=DsfyW4SLn59FNsIgpeJc8Y",
             "shutes": "https://web.whatsapp.com/accept?code=BhuaH34bpnLKoF8cmQ2mX1",
             "quotes": "https://web.whatsapp.com/accept?code=HuFgVZG405jB7ZqCOwqKAR",
             "yearA": "https://web.whatsapp.com/accept?code=GezyfprTPOx2KsHPUETP7Z"}
 
-Stickers = {"why yes": r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\WhyYes.png',
+STICKERS = {"why yes": r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\WhyYes.png',
                    "why not": r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\WhyNot.png'}
+TOP_LEFT_X = 1201
+TOP_LEFT_Y = 552
+TOP_RIGHT_X = 2259
+TOP_RIGHT_Y = 556
+BOTTOM_LEFT_X = 1194
+BOTTOM_LEFT_Y = 1541
+BOTTOM_RIGHT_X = 2271
+BOTTOM_RIGHT_Y = 1544
+STICKER_PANEL_REGION = (TOP_LEFT_X, TOP_LEFT_Y, TOP_RIGHT_X - TOP_LEFT_X, BOTTOM_LEFT_Y - TOP_LEFT_Y)
 
 def messenger(message, name):
-    location = pyautogui.locateOnScreen(r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\TextLine.png', confidence=0.7)
+    location = locator.locateOnScreen(r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\TextLine.png', confidence=0.85)
     pyautogui.click(location)
     if name != None and name != "none":
         pyperclip.copy(f"@{name}")
         pyautogui.hotkey('ctrl', 'v')
-        time.sleep(1)
+        time.sleep(0.5)
         pyautogui.press('enter')
     pyperclip.copy(message)
     pyautogui.hotkey('ctrl', 'v')
     pyautogui.press('enter')
 
 def stickerman(selected_sticker):
-       location_open_emojis = pyautogui.locateOnScreen(r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\StickerAndEmoji.png', confidence=0.7)
+       location_open_emojis = locator.locateOnScreen(r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\StickerAndEmoji.png', confidence=0.85)
        pyautogui.click(location_open_emojis)
        time.sleep(0.5)
-       location_stickers = pyautogui.locateOnScreen(r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\Stickers.png', confidence=0.7)
+       location_stickers = locator.locateOnScreen(r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\Stickers.png', confidence=0.85, region=STICKER_PANEL_REGION)
        pyautogui.click(location_stickers)
        time.sleep(0.5)
 
-       location_selected_sticker = pyautogui.locateOnScreen(Stickers[selected_sticker], confidence=0.7)
+       location_selected_sticker = locator.locateOnScreen(STICKERS[selected_sticker], confidence=0.85, region=STICKER_PANEL_REGION)
        pyautogui.click(location_selected_sticker)
        time.sleep(0.5)
        pyautogui.press('escape')
@@ -46,12 +59,12 @@ def  person_chat_open():
     return message
 
 def group_chat_open():
-    print(f"the groups are: {groups.keys()}")
+    print(f"the groups are: {GROUPS.keys()}")
     selected_group = input("Enter one of the groups: ")
-    webbrowser.open(groups[selected_group])
+    webbrowser.open(GROUPS[selected_group])
 
 def exit_program():
-    time.sleep(2)
+    time.sleep(0.5)
     pyautogui.hotkey('ctrl', 'w')
     pyautogui.hotkey('enter') #saftey measure to make sure the tab is closed
 
@@ -63,11 +76,11 @@ def ANNOYING_TIME():
     match choice:
         case "group":
             if (sticker == "yes"): 
-                selected_sticker = input(f"the groups are: {Stickers.keys()}\nwhich sticker do you want to send?").lower()
+                selected_sticker = input(f"the stickers are: {STICKERS.keys()}\nwhich sticker do you want to send?").lower()
                 group_chat_open()
                 time.sleep(15)
                 for i in range(num_messages):
-                    time.sleep(1)
+                    time.sleep(0.5)
                     stickerman(selected_sticker)
             else:
                 message=input("Enter the message you want to send: ")
@@ -75,30 +88,30 @@ def ANNOYING_TIME():
                 group_chat_open()
                 time.sleep(15)
                 for i in range(num_messages):
-                    time.sleep(1)
+                    time.sleep(0.5)
                     messenger(message, name)
             exit_program()
 
         case "person":
             if (sticker == "yes"):
-                selected_sticker = input(f"the groups are: {Stickers.keys()}\nwhich sticker do you want to send?").lower()
+                selected_sticker = input(f"the stickers are: {STICKERS.keys()}\nwhich sticker do you want to send?").lower()
                 person_chat_open()
                 time.sleep(15)
                 for i in range(num_messages):
-                    time.sleep(1)
+                    time.sleep(0.5)
                     stickerman(selected_sticker)
             else:
                 message = person_chat_open()
                 time.sleep(15)
                 for i in range(num_messages):
-                    time.sleep(1)
+                    time.sleep(0.5)
                     messenger(message, None)
             exit_program()
 
 def group_messenger():
     name = input("Enter the Username of the person you want to text in said group (none if you dont want to tag anyone): ")
     if (input("do you want to send a sticker? (yes/no)").lower() == "yes"):
-        selected_sticker = input(f"the stickers are: {Stickers.keys()}\nwhich sticker do you want to send?").lower()
+        selected_sticker = input(f"the stickers are: {STICKERS.keys()}\nwhich sticker do you want to send?").lower()
         group_chat_open()
         time.sleep(15)
         stickerman(selected_sticker)
@@ -108,13 +121,13 @@ def group_messenger():
         time.sleep(15)
     
         messenger(message, name)
-        time.sleep(1)
+        time.sleep(0.5)
         pyautogui.hotkey('ctrl', 'w')
         pyautogui.hotkey('enter')
 
 def person_messenger():
     if (input("do you want to send a sticker? (yes/no)").lower() == "yes"):
-        selected_sticker = input(f"the stickers are: {Stickers.keys()}\nwhich sticker do you want to send?").lower()
+        selected_sticker = input(f"the stickers are: {STICKERS.keys()}\nwhich sticker do you want to send?").lower()
         group_chat_open()
         time.sleep(15)
         stickerman(selected_sticker)
@@ -123,7 +136,7 @@ def person_messenger():
         time.sleep(15)
         
         messenger(message, None)
-        time.sleep(1)
+        time.sleep(0.5)
         pyautogui.hotkey('ctrl', 'w')
         pyautogui.hotkey('enter')
 
@@ -135,7 +148,7 @@ if __name__ == "__main__":
         case False:
             if input("soo to a person or group?").lower() == "person":
                 if (input("do you want to send a sticker? (yes/no)").lower() == "yes"):
-                    selected_sticker = input(f"the stickers are: {Stickers.keys()}\nwhich sticker do you want to send?").lower()
+                    selected_sticker = input(f"the stickers are: {STICKERS.keys()}\nwhich sticker do you want to send?").lower()
                     person_chat_open()
                     time.sleep(15)
                     stickerman(selected_sticker)
@@ -143,7 +156,7 @@ if __name__ == "__main__":
                     person_messenger()
             else:
                 if (input("do you want to send a sticker? (yes/no)").lower() == "yes"):
-                    selected_sticker = input(f"the stickers are: {Stickers.keys()}\nwhich sticker do you want to send?").lower()
+                    selected_sticker = input(f"the stickers are: {STICKERS.keys()}\nwhich sticker do you want to send?").lower()
                     group_chat_open()
                     time.sleep(15)
                     stickerman(selected_sticker)
