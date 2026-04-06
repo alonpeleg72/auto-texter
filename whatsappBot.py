@@ -14,8 +14,8 @@ GROUPS = { "yagels": "https://web.whatsapp.com/accept?code=KRIi2ftqjYI7dtuWNL9mB
             "quotes": "https://web.whatsapp.com/accept?code=HuFgVZG405jB7ZqCOwqKAR",
             "yearA": "https://web.whatsapp.com/accept?code=GezyfprTPOx2KsHPUETP7Z"}
 
-STICKERS = {"why yes": r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\WhyYes.png',
-                   "why not": r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\WhyNot.png'}
+STICKERS = {"why yes": r'C:\Users\alonp\documents\degree\year1\CS\WhatsappBot\whatsapp_bot_images\WhyYes.png',
+                   "why not": r'C:\Users\alonp\documents\degree\year1\CS\WhatsappBot\whatsapp_bot_images\WhyNot.png'}
 TOP_LEFT_X = 1201
 TOP_LEFT_Y = 552
 TOP_RIGHT_X = 2259
@@ -27,7 +27,7 @@ BOTTOM_RIGHT_Y = 1544
 STICKER_PANEL_REGION = (TOP_LEFT_X, TOP_LEFT_Y, TOP_RIGHT_X - TOP_LEFT_X, BOTTOM_LEFT_Y - TOP_LEFT_Y)
 
 def messenger(message, name):
-    location = locator.locateOnScreen(r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\TextLine.png', confidence=0.85)
+    location = locator.locateOnScreen(r'C:\Users\alonp\documents\degree\year1\CS\WhatsappBot\whatsapp_bot_images\TextLine.png', confidence=0.85)
     pyautogui.click(location)
     if name != None and name != "none":
         pyperclip.copy(f"@{name}")
@@ -39,10 +39,10 @@ def messenger(message, name):
     pyautogui.press('enter')
 
 def stickerman(selected_sticker):
-       location_open_emojis = locator.locateOnScreen(r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\StickerAndEmoji.png', confidence=0.85)
+       location_open_emojis = locator.locateOnScreen(r'C:\Users\alonp\documents\degree\year1\CS\WhatsappBot\whatsapp_bot_images\StickerAndEmoji.png', confidence=0.85)
        pyautogui.click(location_open_emojis)
        time.sleep(0.5)
-       location_stickers = locator.locateOnScreen(r'C:\Users\alonp\OneDrive\Pictures\whatsapp_bot\Stickers.png', confidence=0.85, region=STICKER_PANEL_REGION)
+       location_stickers = locator.locateOnScreen(r'C:\Users\alonp\documents\degree\year1\CS\WhatsappBot\whatsapp_bot_images\Stickers.png', confidence=0.85, region=STICKER_PANEL_REGION)
        pyautogui.click(location_stickers)
        time.sleep(0.5)
 
