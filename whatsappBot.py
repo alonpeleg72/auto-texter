@@ -6,16 +6,19 @@ pyautogui.PAUSE = 0
 import time
 import pyperclip
 import locator
-
+import os
+from dotenv import load_dotenv
+load_dotenv()
 # the global variables used
-GROUPS = { "yagels": "https://web.whatsapp.com/accept?code=KRIi2ftqjYI7dtuWNL9mBi",
-            "year0": "https://web.whatsapp.com/accept?code=DsfyW4SLn59FNsIgpeJc8Y",
-            "shutes": "https://web.whatsapp.com/accept?code=BhuaH34bpnLKoF8cmQ2mX1",
-            "quotes": "https://web.whatsapp.com/accept?code=HuFgVZG405jB7ZqCOwqKAR",
-            "yearA": "https://web.whatsapp.com/accept?code=GezyfprTPOx2KsHPUETP7Z"}
+GROUPS = {
+    "group1": os.getenv("GROUP1"), "group2": os.getenv("GROUP2"),
+    "group3": os.getenv("GROUP3"), "group4": os.getenv("GROUP4")
+}
+STICKERS = {
+    "sticker1": r"C:\Users\alonp\documents\degree\year1\CS\WhatsappBot\whatsapp_bot_images\sticker1.png",
+    "sticker2": r"C:\Users\alonp\documents\degree\year1\CS\WhatsappBot\whatsapp_bot_images\sticker2.png",
+}
 
-STICKERS = {"why yes": r'C:\Users\alonp\documents\degree\year1\CS\WhatsappBot\whatsapp_bot_images\WhyYes.png',
-                   "why not": r'C:\Users\alonp\documents\degree\year1\CS\WhatsappBot\whatsapp_bot_images\WhyNot.png'}
 TOP_LEFT_X = 1201
 TOP_LEFT_Y = 552
 TOP_RIGHT_X = 2259
@@ -147,18 +150,6 @@ if __name__ == "__main__":
             ANNOYING_TIME()
         case False:
             if input("soo to a person or group?").lower() == "person":
-                if (input("do you want to send a sticker? (yes/no)").lower() == "yes"):
-                    selected_sticker = input(f"the stickers are: {STICKERS.keys()}\nwhich sticker do you want to send?").lower()
-                    person_chat_open()
-                    time.sleep(15)
-                    stickerman(selected_sticker)
-                else:
                     person_messenger()
             else:
-                if (input("do you want to send a sticker? (yes/no)").lower() == "yes"):
-                    selected_sticker = input(f"the stickers are: {STICKERS.keys()}\nwhich sticker do you want to send?").lower()
-                    group_chat_open()
-                    time.sleep(15)
-                    stickerman(selected_sticker)
-                else:
                     group_messenger()
